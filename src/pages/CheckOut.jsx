@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import Payment from "./Payment";
 
 const shippingSchema = yup.object({
   firstName: yup.string().required("First name is required"),
@@ -15,18 +16,30 @@ const shippingSchema = yup.object({
   .matches(/^[0-9]+$/, "Must be only digits")
   .min(6, 'Must be exactly 6 digits')
   .max(6, 'Must be exactly 6 digits'),
+  mobile: yup.string().required('Mobile No is required')
+  .matches(/^[0-9]+$/, "Must be only digits")
+  .min(10, 'Must be 10 digits')
+  .max(10, 'Must be 10 digits'),
 });
+
+// const initialOptions = {
+//   clientId: "test",
+//   currency: "INR",
+//   intent: "capture",
+// };
 
 function CheckOut() {
   
-
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const authState = useSelector((state) => state?.auth?.user);
   const cartState = useSelector((state) => state?.auth?.cartItems);
-
+  // console.log(cartState);
+ 
   const [total, setTotal] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null)
+  const [payment, setPayment] = useState(false)
 
   useEffect(() => {
     let sum = 0;
@@ -45,10 +58,12 @@ function CheckOut() {
       city: "",
       country: "",
       pincode: "",
+      mobile:""
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
       setShippingInfo(values)
+      setPayment(true)
     },
   });
 
@@ -117,7 +132,7 @@ function CheckOut() {
                       className="form-control form-select"
                       id=""
                     >
-                      <option value="" selected disabled>
+                      <option value="" disabled>
                         Select Country
                       </option>
                       <option value="India">India</option>
@@ -209,7 +224,7 @@ function CheckOut() {
                       onChange={formik.handleChange("state")}
                       onBlur={formik.handleBlur("state")}
                     >
-                      <option value="" selected disabled>
+                      <option value="" disabled>
                         Select State
                       </option>
                       <option value="TN">Tamil Nadu</option>
@@ -236,6 +251,23 @@ function CheckOut() {
                       {formik.touched.pincode && formik.errors.pincode}
                     </div>
                   </div>
+
+                  <div className="">
+                    <input
+                      type="text"
+                      placeholder="Mobile No"
+                      className="form-control"
+                      name="mobile"
+                      value={formik.values.mobile}
+                      onChange={formik.handleChange("mobile")}
+                      onBlur={formik.handleBlur("mobile")}
+                    />
+
+                    <div className="error ms-2 my-1">
+                      {formik.touched.mobile && formik.errors.mobile}
+                    </div>
+                  </div>
+
                   <div className="w-100 py-4">
                     <div className="d-flex justify-content-between align-items-center">
                       <Link
@@ -252,77 +284,79 @@ function CheckOut() {
                       <button className="contact-button" type="submit">
                         Place Order
                       </button>
+                      
                     </div>
                   </div>
                 </form>
               </div>
             </div>
-
-            <div className="col-5">
-              <div className="border-bottom py-4">
-                {cartState &&
-                  cartState?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="d-flex gap-10 mb-2 align-items-center"
-                      >
-                        <div className="w-75 d-flex gap-10">
-                          <div className="w-25 position-relative">
-                            <span
-                              style={{ top: "-10px", right: "2px" }}
-                              className="badge bg-success text-white rounded-circle p-2 position-absolute"
+              {
+                    payment ? <Payment data={total+30} address={shippingInfo} user={authState} orderDetails={cartState}/> : <div className="col-5">
+                    <div className="border-bottom py-4">
+                      {cartState &&
+                        cartState?.map((item, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="d-flex gap-10 mb-2 align-items-center"
                             >
-                              {item?.quantity}
-                            </span>
-                            <img
-                              id="checkout-img"
-                              className="img-fluid"
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCiPIQC3p4IOBjI2pdj5vcj3PzkTg493-kA&usqp=CAU"
-                              alt="prod_img"
-                            />
-                          </div>
-                          <div>
-                            <h5 className="total-price">
-                              {item?.productId?.title}
-                            </h5>
-                            <p className="total-price">
-                              {item?.productId?.category}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex-grow-1">
-                          <h5 className="total">
-                            Rs. {item?.productId?.price * item?.quantity}
-                          </h5>
-                        </div>
+                              <div className="w-75 d-flex gap-10">
+                                <div className="w-25 position-relative">
+                                  <span
+                                    style={{ top: "-10px", right: "2px" }}
+                                    className="badge bg-success text-white rounded-circle p-2 position-absolute"
+                                  >
+                                    {item?.quantity}
+                                  </span>
+                                  <img
+                                    id="checkout-img"
+                                    className="img-fluid"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlCiPIQC3p4IOBjI2pdj5vcj3PzkTg493-kA&usqp=CAU"
+                                    alt="prod_img"
+                                  />
+                                </div>
+                                <div>
+                                  <h5 className="total-price">
+                                    {item?.productId?.title}
+                                  </h5>
+                                  <p className="total-price">
+                                    {item?.productId?.category}
+                                  </p>
+                                </div>
+                              </div>
+      
+                              <div className="flex-grow-1">
+                                <h5 className="total">
+                                  Rs. {item?.productId?.price * item?.quantity}
+                                </h5>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+      
+                    <div className="border-bottom py-4">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <p className="total">SubTotal</p>
+                        <p className="total-price">
+                          Rs. <b>{total ? total : 0}</b>
+                        </p>
                       </div>
-                    );
-                  })}
-              </div>
-
-              <div className="border-bottom py-4">
-                <div className="d-flex justify-content-between align-items-center">
-                  <p className="total">SubTotal</p>
-                  <p className="total-price">
-                    Rs. <b>{total ? total : 0}</b>
-                  </p>
-                </div>
-
-                <div className="d-flex justify-content-between align-items-center border-bottom py-4">
-                  <p className="mb-0 total">Shipping</p>
-                  <p className="mb-0 total-price">
-                    Rs. <b>30</b>
-                  </p>
-                </div>
-              </div>
-
-              <div className="d-flex justify-content-between align-items-center">
-                <h4 className="total">Total</h4>
-                <h3 className="total-price">Rs. {total ? total + 30 : 0}</h3>
-              </div>
-            </div>
+      
+                      <div className="d-flex justify-content-between align-items-center border-bottom py-4">
+                        <p className="mb-0 total">Shipping</p>
+                        <p className="mb-0 total-price">
+                          Rs. <b>30</b>
+                        </p>
+                      </div>
+                    </div>
+      
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h4 className="total">Total</h4>
+                      <h3 className="total-price">Rs. {total ? total + 30 : 0}</h3>
+                    </div>
+                  </div>
+              }
           </div>
         </div>
       </div>

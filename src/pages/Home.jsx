@@ -18,11 +18,13 @@ import BlogCard from "../components/BlogCard";
 import Container from "../components/Container";
 import { getAllBlogs } from "../features/blogs/BlogSlice";
 import { getAllProducts } from "../features/products/ProductSlice";
+import { getUserCart } from "../features/user/UserSlice";
 import PopularProduct from "../components/PopularProduct";
 
 function Home() {
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product?.products)
+  const cartState = useSelector((state) => state?.auth?.cartItems)
   // console.log(productState);
 
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ function Home() {
   useEffect(() => {
     getBlogs();
     getProducts()
+    getUserCart()
   }, []);
 
   const getBlogs = () => {
@@ -162,7 +165,7 @@ function Home() {
                 return <PopularProduct 
                             key={index} 
                             title={item?.title} 
-                            totalrating = {item?.totalrating?.toString()}    
+                            totalrating = {item?.totalrating[0]?.toString()}    
                             price = {item?.price}
                             stock= {item?.stock}
                             category = {item?.category}

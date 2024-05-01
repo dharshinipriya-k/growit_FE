@@ -19,6 +19,13 @@ import ShippingPolicy from './pages/ShippingPolicy'
 import ProductPage from './pages/ProductPage'
 import Cart from './pages/Cart'
 import CheckOut from './pages/CheckOut'
+import Payment from './pages/Payment'
+import Orders from './pages/Orders'
+import { ProtectedRoutes } from './routes/ProtectedRoutes'
+import { OpenRoutes } from './routes/OpenRoutes'
+import OrderedItems from './pages/OrderedItems'
+import Profile from './pages/Profile'
+
 
 function App() {
   return <>
@@ -35,16 +42,20 @@ function App() {
           <Route path='blog/:id' element = {<BlogPage/>} />
           <Route path='contact' element = {<Contact/>} />
           <Route path='wishlist' element = {<Wishlist/>} />
-          <Route path='login' element = {<Login/>} />
+          <Route path='login' element = {<OpenRoutes><Login/></OpenRoutes>} />
           <Route path='forgot-password' element = {<ForgotPassword/>} />
-          <Route path='signup' element = {<Signup/>} />
-          <Route path='reset-password' element = {<ResetPassword/>} />
+          <Route path='signup' element = {<OpenRoutes><Signup/></OpenRoutes>} />
+          <Route path='reset-password/:token' element = {<ResetPassword/>} />
           <Route path='privacy-policy' element = {<PrivacyPolicy/>} />
           <Route path='terms&conditions' element = {<TermsAndCond/>} />
           <Route path='refund-policy' element = {<RefundPolicy/>} />
           <Route path='shipping-policy' element = {<ShippingPolicy/>} />
-          <Route path='cart' element = {<Cart/>} />
-          <Route path='checkout' element = {<CheckOut/>} />
+          <Route path='cart' element = {<ProtectedRoutes><Cart/></ProtectedRoutes>} />
+          <Route path='checkout' element = {<ProtectedRoutes><CheckOut/></ProtectedRoutes>} />
+          <Route path='payment' element = {<ProtectedRoutes><Payment/></ProtectedRoutes>} />
+          <Route path='my-orders' element = {<ProtectedRoutes><Orders/></ProtectedRoutes>} />
+          <Route path='order-items/:id' element={<ProtectedRoutes><OrderedItems/></ProtectedRoutes>} />
+          <Route path='/my-profile' element={<ProtectedRoutes><Profile/></ProtectedRoutes>} />
         </Route>
                
       </Routes>

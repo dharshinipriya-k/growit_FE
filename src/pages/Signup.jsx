@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux';
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from 'yup';
 import Breadcrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -12,7 +12,10 @@ const signUpSchema = yup.object({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
   email: yup.string().nullable().email('Enter a valid email').required('Email is required'),
-  mobile: yup.string().required('Mobile No is required'),
+  mobile: yup.string().required('Mobile No is required')
+  .matches(/^[0-9]+$/, "Must be only digits")
+  .min(10, 'Must be 10 digits')
+  .max(10, 'Must be 10 digits'),
   password: yup.string().required('Password is required'),
   reenterpassword: yup.string().required('Enter your password again'),
 });
@@ -20,6 +23,8 @@ const signUpSchema = yup.object({
 function Signup() {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const authState = useSelector(state => state?.auth)
 
   const formik = useFormik({
     initialValues: {
@@ -37,6 +42,12 @@ function Signup() {
     },
    
   })
+
+  useEffect(() => {
+    if(authState?.createdUser ==! null && authState?.isError === false){
+      navigate('/login')
+    }
+  },[])
 
   return <>
 

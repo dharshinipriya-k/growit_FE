@@ -1,10 +1,10 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { ProductService } from './ProductService'
 
-export const getAllProducts = createAsyncThunk("product/get", async(thunkAPI) =>{
+export const getAllProducts = createAsyncThunk("product/get", async(data, thunkAPI) =>{
     try {
-        return await ProductService.getProducts()
+        return await ProductService.getProducts(data)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
@@ -13,6 +13,14 @@ export const getAllProducts = createAsyncThunk("product/get", async(thunkAPI) =>
 export const getAProduct = createAsyncThunk("product/get-one", async(id,thunkAPI) =>{
     try {
         return await ProductService.getSingleProduct(id)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const addRating = createAsyncThunk("product/rating", async(data,thunkAPI) =>{
+    try {
+        return await ProductService.rateProduct(data)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
@@ -56,7 +64,7 @@ export const productSlice = createSlice({
             state.isLoading = false
             state.isError = false
             state.isSuccess = true
-            state.product = action.payload
+            state.singleProduct  = action.payload
             state.message = 'Product fetched successfully'
            
         })
@@ -65,6 +73,31 @@ export const productSlice = createSlice({
             state.isError = true
             state.isSuccess = false
             state.message = action.error
+           
+        })
+
+        .addCase(addRating.pending, (state)=>{
+            state.isLoading = true
+        })
+        .addCase(addRating.fulfilled,(state, action) => {
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = true
+            state.rating = action.payload
+            state.message = 'Your rating has been submitted'
+            if(state.isSuccess){
+                toast.success("Your review has been submitted.!")
+            }
+           
+        })
+        .addCase(addRating.rejected, (state,action)=>{
+            state.isLoading = false
+            state.isError = true
+            state.isSuccess = false
+            state.message = action.error
+            if( !state.isSuccess){
+                toast.error('Failed to submit review!')
+            }
            
         })
    

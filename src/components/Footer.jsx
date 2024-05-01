@@ -77,7 +77,7 @@ function Footer() {
             <div className="col-3">
               <h4>Stay in the loop</h4>
               <div>
-                <address><i class="fa-solid fa-house" style= {{"color": "#008000"}} id="phn-icon"></i>No : 277,  Near VR villa,
+                <address><i className="fa-solid fa-house" style= {{"color": "#008000"}} id="phn-icon"></i>No : 277,  Near VR villa,
                   Guindy, Chennai <br />
                 </address>
               </div>

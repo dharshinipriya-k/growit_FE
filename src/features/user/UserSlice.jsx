@@ -50,6 +50,47 @@ export const UpdateCart = createAsyncThunk("user/cart/update", async(cartData,th
     }
 })
 
+export const placeOrder = createAsyncThunk('user/place-order', async(orderDetails, thunkAPI) => {
+    try {
+        console.log(orderDetails);
+        return await authService.placeOrder(orderDetails)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const getUserOrders = createAsyncThunk("user/orders/get", async(thunkAPI) =>{
+    try {
+        return await authService.getMyOrders()
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const updateProfile = createAsyncThunk("user/profile/update", async(data, thunkAPI) =>{
+    try {
+        return await authService.updateUser(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const forgotPasswordToken = createAsyncThunk("user/password/token", async(data, thunkAPI) =>{
+    try {
+        return await authService.forgotPassToken(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const resetPasswordToken = createAsyncThunk("user/password/reset", async(data, thunkAPI) =>{
+    try {
+        return await authService.resetPassToken(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
 const getCustomerFromLocal = localStorage.getItem('customer')
 ? JSON.parse(localStorage.getItem('customer'))
 : null
@@ -87,7 +128,7 @@ export const authSlice = createSlice({
             state.isSuccess = false
             state.message = action.error
             if(state.isError === true){
-                toast.error(action.error)
+                toast.error(`${action.payload.response.data.message }`)
             }
         })
         .addCase(login.pending, (state)=>{
@@ -110,7 +151,7 @@ export const authSlice = createSlice({
             state.isSuccess = false
             state.message = action.error
             if(state.isError === true){
-                toast.error('Invalid credentials')
+                toast.error(`${action.payload.response.data.message}`)
             }
         })
 
@@ -136,75 +177,195 @@ export const authSlice = createSlice({
             }
             
         })
-    .addCase(getUserCart.pending, (state)=>{
+        .addCase(getUserCart.pending, (state)=>{
+                state.isLoading = true
+            })
+        .addCase(getUserCart.fulfilled,(state, action) => {
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = true  
+            state.cartItems = action.payload
+            
+        })
+        .addCase(getUserCart.rejected, (state,action)=>{
+            state.isLoading = false
+            state.isError = true
+            state.isSuccess = false
+            state.message = action.error
+            
+        })
+
+    .addCase(removeFromCart.pending, (state)=>{
+            state.isLoading = true
+            })
+        .addCase(removeFromCart.fulfilled,(state, action) => {
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = true  
+            state.deletedProd = action.payload
+            if(state.isSuccess){
+                toast.success('Product deleted from Cart!')
+            }
+            
+        })
+        .addCase(removeFromCart.rejected, (state,action)=>{
+            state.isLoading = false
+            state.isError = true
+            state.isSuccess = false
+            state.message = action.error
+            if( !state.isSuccess){
+                toast.error('Something went wrong!!')
+            }
+            
+        })
+
+        .addCase(UpdateCart.pending, (state)=>{
             state.isLoading = true
         })
-    .addCase(getUserCart.fulfilled,(state, action) => {
-        state.isLoading = false
-        state.isError = false
-        state.isSuccess = true  
-        state.cartItems = action.payload
-        
-    })
-    .addCase(getUserCart.rejected, (state,action)=>{
-        state.isLoading = false
-        state.isError = true
-        state.isSuccess = false
-        state.message = action.error
-        
-    })
-
- .addCase(removeFromCart.pending, (state)=>{
-        state.isLoading = true
+        .addCase(UpdateCart.fulfilled,(state, action) => {
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = true  
+            state.updatedCart = action.payload
+            if(state.isSuccess){
+                toast.success('Cart Updated!')
+            }
         })
-    .addCase(removeFromCart.fulfilled,(state, action) => {
+        .addCase(UpdateCart.rejected, (state,action)=>{
+            state.isLoading = false
+            state.isError = true
+            state.isSuccess = false
+            state.message = action.error
+            if( !state.isSuccess){
+                toast.error('Something went wrong!!')
+            }           
+        })
+        .addCase(placeOrder.pending, (state)=>{
+            state.isLoading = true
+        })
+        .addCase(placeOrder.fulfilled,(state, action) => {
         state.isLoading = false
         state.isError = false
         state.isSuccess = true  
-        state.deletedProd = action.payload
+        state.orderInfo = action.payload
         if(state.isSuccess){
-            toast.success('Product deleted from Cart!')
+            toast.success('Your order has been Placed Successfully!!')
         }
-        
-    })
-    .addCase(removeFromCart.rejected, (state,action)=>{
+
+
+        })
+        .addCase(placeOrder.rejected, (state,action)=>{
         state.isLoading = false
         state.isError = true
         state.isSuccess = false
         state.message = action.error
         if( !state.isSuccess){
-            toast.error('Something went wrong!!')
+            toast.error("Couldn't Place Order")
         }
+
+        })
+
+        .addCase(getUserOrders.pending, (state)=>{
+            state.isLoading = true
+        })
+        .addCase(getUserOrders.fulfilled,(state, action) => {
+        state.isLoading = false
+        state.isError = false
+        state.isSuccess = true  
+        state.myOrders = action.payload
+
+        })
+        .addCase(getUserOrders.rejected, (state,action)=>{
+        state.isLoading = false
+        state.isError = true
+        state.isSuccess = false
+        state.message = action.error
+        })
+
+        .addCase(updateProfile.pending, (state)=>{
+            state.isLoading = true
+            console.log('pending');
+        })
+        .addCase(updateProfile.fulfilled,(state, action) => {
+        state.isLoading = false
+        state.isError = false
+        state.isSuccess = true  
+        state.updatedUser = action.payload
+       
+            let currentUserData = JSON.parse(localStorage.getItem('customer'))
+            console.log(currentUserData);
+            let newUserData = {
+                _id: currentUserData?._id,
+                token: action?.payload?.token,
+                firstName: action?.payload?.firstName,
+                lastName: action?.payload?.lastName,
+                mobile: action?.payload?.mobile,
+                email: action?.payload?.email
+
+            }
+            console.log(newUserData);
+            localStorage.setItem('customer',JSON.stringify(newUserData))
+            state.user = newUserData
+            toast.success('Profile updated Successfully')
         
-    })
 
-    .addCase(UpdateCart.pending, (state)=>{
-        state.isLoading = true
-    })
-.addCase(UpdateCart.fulfilled,(state, action) => {
-    state.isLoading = false
-    state.isError = false
-    state.isSuccess = true  
-    state.updatedCart = action.payload
-    if(state.isSuccess){
-        toast.success('Cart Updated!')
-    }
-    
-    
-})
-.addCase(UpdateCart.rejected, (state,action)=>{
-    state.isLoading = false
-    state.isError = true
-    state.isSuccess = false
-    state.message = action.error
-    if( !state.isSuccess){
-        toast.error('Something went wrong!!')
-    }
-    
-})
+        })
+        .addCase(updateProfile.rejected, (state,action)=>{
+        state.isLoading = false
+        state.isError = true
+        state.isSuccess = false
+        state.message = action.error
+        if( !state.isSuccess){
+            toast.error('Profile updation failed!')
+        }
+        })
 
+        .addCase(forgotPasswordToken.pending, (state)=>{
+            state.isLoading = true
+        })
+        .addCase(forgotPasswordToken.fulfilled,(state, action) => {
+        state.isLoading = false
+        state.isError = false
+        state.isSuccess = true  
+        state.token = action.payload
+        if(state.isSuccess){
+            toast.success('Email Sent to the entered Email ID')
+        }
+
+        })
+        .addCase(forgotPasswordToken.rejected, (state,action)=>{
+        state.isLoading = false
+        state.isError = true
+        state.isSuccess = false
+        state.message = action.error
+        if( !state.isSuccess){
+            toast.error('Something went wrong! Try again!')
+        }
+        })
+
+        .addCase(resetPasswordToken.pending, (state)=>{
+            state.isLoading = true
+        })
+        .addCase(resetPasswordToken.fulfilled,(state, action) => {
+        state.isLoading = false
+        state.isError = false
+        state.isSuccess = true  
+        state.passWord = action.payload
+        if(state.isSuccess){
+            toast.success('Password Updated Successfully')
+        }
+
+        })
+        .addCase(resetPasswordToken.rejected, (state,action)=>{
+        state.isLoading = false
+        state.isError = true
+        state.isSuccess = false
+        state.message = action.error
+        if( !state.isSuccess){
+            toast.error('Something went wrong! Try again!')
+        }
+        })
     }
 })
-
 
 export default authSlice.reducer;

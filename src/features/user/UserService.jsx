@@ -53,11 +53,55 @@ const updateCartQuantity = async(cartData) => {
         }
     }
 
+ const placeOrder = async(orderData) => {
+        console.log(orderData);
+            const response = await axios.post(`${base_url}user/cart/create-order`,orderData,config)
+            if(response.data){
+                return response.data
+            }
+}
+
+
+const getMyOrders = async() => {
+    const response = await axios.get(`${base_url}user/get-my-orders`, config)
+    if(response.data){
+        return response.data
+    }
+}
+
+const updateUser = async(data) => {
+    const response = await axios.put(`${base_url}user/edit`,data, config)
+    if(response.data){
+        return response.data
+    }
+}
+
+const forgotPassToken =  async (data) => {
+    const response = await axios.post(`${base_url}user/forgot-password`,data)
+    if(response.data){
+        return response.data
+    }
+}
+
+const resetPassToken =  async (data) => {
+    console.log('error in reset axios');
+    const response = await axios.put(`http://localhost:8000/api/user/reset-password/${data.token}`,{password: data?.password})
+    if(response.data){
+        return response.data
+    }
+}
+
+
 export const authService = {
     register,
     login,
     addToCart,
     getCart,
     removeFromCart,
-    updateCartQuantity
+    updateCartQuantity,
+    placeOrder,
+    getMyOrders,
+    updateUser,
+    forgotPassToken,
+    resetPassToken
 }

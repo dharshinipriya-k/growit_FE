@@ -54,6 +54,16 @@ body{
   font-size: x-large;
 }
 
+#profile-name{
+  color: black;
+  font-weight: bolder;
+}
+
+#profile-icon{
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+}
+
 #badge{
   background-color: #2AAA8A;
   margin-left: 8px;
@@ -805,7 +815,7 @@ font-weight: 400;
 
 .total-price{
   font-size: 16px;
-  color: #777777;
+  color: black;
 }
 
 .error{
@@ -848,3 +858,13 @@ font-weight: 400;
   color: green;
 }
 
+
+/* -----------------------------------------Payment Page----------------------------------------------------- */
+.paypage-total{
+  font-weight: bolder;
+}
+
+#sub-btn{
+  background-color: green;
+  width: 5rem;
+}

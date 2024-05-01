@@ -25,13 +25,13 @@ function ProductCard(props) {
               <div className="product-details">
                 <h5 className='product-title'>{item.title}</h5>
                 <h6 className='product-category'>{item.category}</h6>
-                <ReactStars count={5} size={24} value={item?.totalrating.toString()} edit={false} activeColor= '#ffd700'/>
+                <ReactStars count={5} size={24} value={item?.totalrating?.toString()} edit={false} activeColor= '#ffd700'/>
                 <p className="price">{`Rs. ${item.price}`}</p>
               </div>
               <div className="action-bar ">
                 
                   <div className="packNum">Pack of 1</div>
-                  <Button>Add to Cart</Button>
+                  {/* <Button>Add to Cart</Button> */}
                 
               </div>
             </div>

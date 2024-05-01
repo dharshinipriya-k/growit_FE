@@ -6,10 +6,11 @@ import Button from 'react-bootstrap/Button'
 import ReactStars from 'react-rating-stars-component'
 import { useLocation, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import { getAProduct, getAllProducts } from '../features/products/ProductSlice'
+import { addRating, getAProduct, getAllProducts } from '../features/products/ProductSlice'
 import PopularProduct from "../components/PopularProduct";
 import { toast } from 'react-toastify'
 import { addToCart, getUserCart } from '../features/user/UserSlice'
+
 
 function ProductPage() {
 
@@ -22,17 +23,22 @@ function ProductPage() {
   const getProductId = location.pathname.split('/')[2]
   const dispatch = useDispatch()
 
-  const productState = useSelector((state) => state.product?.product?.findProduct)
+  const productState = useSelector((state) => state.product?.singleProduct?.findProduct)
+  const productsState = useSelector(state => state?.products?.product)
   const popularProdState = useSelector((state) => state.product?.products)
   const cartState = useSelector((state) => state.auth?.cartItems)
 
 useEffect(()=>{
+
   dispatch(getAProduct(getProductId))
   dispatch(getAllProducts())
   dispatch(getUserCart())
+
 },[])
 
 useEffect(()=>{
+
+
   for (let index = 0; index < cartState?.length; index++) {
     if(getProductId === cartState[index]?.productId?._id){
       setAlreadyAdded(true)
@@ -40,21 +46,23 @@ useEffect(()=>{
     
   }
 
-  // getUserCart()
 },[])
 
-
+useEffect(() => {
+  for (let index = 0; index < productsState?.length; index++) {
+    const element = productsState[index];   
+  }
+},[productsState])
 
 const updateCart = () => {
   
-  dispatch(addToCart({productId: productState?._id, quantity,price: productState?.price}))
+  dispatch(addToCart({productId: productsState?._id, quantity,price: productsState?.price}))
   // navigate('/cart')
   setTimeout(() => {
     getUserCart()
   }, 100);
   
 }
-
 
 const handleDecrement = (quantity) => {
   if (quantity > 1) {
@@ -68,9 +76,28 @@ const handleIncrement = ( quantity) => {
   }
 };
 
-// console.log(quantity);
-
   const [orderedProduct, setOrderedProduct] = useState()
+
+  const [star, setStar] = useState(null)
+  const [comment, setComment] = useState(null)
+
+  const addProdRating = () => {
+    if(star === null){
+      toast.error('Please add star rating')
+      return false
+    }
+    else if(comment === null){
+      toast.error('Please write Review')
+      return false
+    }
+    else {
+      dispatch(addRating({star: star, comment: comment, prodId: getProductId}))
+      dispatch(getAProduct(getProductId))
+    
+    }
+    return false
+  }
+  
   return (
     <>
 
@@ -174,7 +201,7 @@ const handleIncrement = ( quantity) => {
 
                   <div className="review-form py-4">
                     <h4>Write a review</h4>
-                    <form action="" className="d-flex flex-column gap-15">
+                    {/* <form action="" onSubmit={addProdRating} className="d-flex flex-column gap-15"> */}
                       <div>
                         <ReactStars
                           count={5}
@@ -182,6 +209,9 @@ const handleIncrement = ( quantity) => {
                           value={3}
                           edit={true}
                           activeColor="#ffd700"
+                          onChange={(e) => {
+                            setStar(e)
+                          }}
                         />
                       </div>
 
@@ -192,37 +222,42 @@ const handleIncrement = ( quantity) => {
                           rows="4"
                           className="w-100 form-control"
                           placeholder="Comments"
+                          onChange={(e) => {
+                            setComment(e.target.value)
+                          }}
                         />
                       </div>
 
                       <div>
-                        <Button className="review-sub-button">
+                        <button className="review-sub-button"   onClick={addProdRating}>
                           Submit Review
-                        </Button>
+                        </button>
                       </div>
-                    </form>
+                    {/* </form> */}
                   </div>
 
                   <div className="reviews mt-4">
-                    <div className="review">
+                    {
+                      productState && productState?.rating?.map((item,index) => {
+                        return (
+                          <div className="review" key={index}>
                       <div className="d-flex gap-10 align-items-center">
-                        <h6 className='mb-0'>Rishi</h6>
+                        <h6 className='mb-0'>{item}</h6>
                         <ReactStars
                           count={5}
                           size={24}
-                          value={3}
+                          value={item?.star}
                           edit={false}
                           activeColor="#ffd700"
                         />
                       </div>
                       <p className="mt-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Architecto accusantium fugit delectus eos iste! Maxime,
-                        expedita nisi nesciunt magni placeat iste dignissimos
-                        pariatur labore voluptatibus? Praesentium aspernatur
-                        officia possimus commodi!
+                       {item?.comment}
                       </p>
                     </div>
+                        )
+                      })
+                    }
                   </div>
                 </div>
               </div>

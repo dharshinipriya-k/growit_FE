@@ -12,11 +12,11 @@ function Cart() {
   const [updatedData, setUpdatedData] = useState(null)
   const [total, setTotal] = useState(null)
 
-  const userCartState = useSelector((state) => state.auth?.cartItems)
-
+  const userCartState = useSelector((state) => state?.auth?.cartItems)
 
   useEffect(() => {
     dispatch(getUserCart())
+    getUserCart()
     
   },[])
 
@@ -43,10 +43,6 @@ function Cart() {
       setTotal(sum)
     }
   },[userCartState])
-
-  // const UpdateCartProd = (updatedData) => {
-    
-  // }
 
   return (
     <>
@@ -113,13 +109,11 @@ function Cart() {
                 })
               }
 
-             
             </div>
             <div className="col-12 py-2 mt-4">
               <div className='d-flex justify-content-between align-items-baseline'>
               <Link to='/product/:id'><Button>Continue to Shopping</Button></Link>
-              </div>
-              
+              </div>             
             </div>
 
               {

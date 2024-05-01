@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import * as yup from 'yup'
+import * as yup from 'yup';
 import Breadcrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import Button from "react-bootstrap/Button";
-import { useDispatch } from "react-redux";
 import { login } from "../features/user/UserSlice";
 
 const loginSchema = yup.object({
@@ -17,8 +17,19 @@ const loginSchema = yup.object({
 
 function Login() {
 
+  const authState = useSelector(state => state?.auth)
+  // console.log(authState);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   console.log(authState?.isError, authState?.user);
+  //   if(authState?.user ==! null && authState?.isError === false){
+
+  //     navigate('/')
+      
+  //   }
+  // },[])
 
   const formik = useFormik({
     initialValues: {
@@ -27,13 +38,16 @@ function Login() {
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      console.log(values);
-      dispatch(login(values))
-      // navigate('/')
      
+      dispatch(login(values))
+      if(authState?.isSuccess == true){
+        navigate('/')
+      }
     },
    
   })
+
+  
 
   return (
     <>
@@ -84,8 +98,8 @@ function Login() {
                 <div>
                   <Link to='/forgot-password' id="links">Forgot Password?</Link>
                   <div className="login-page-btns">
-                 <button id="login-btn" >Login</button>
-                  <Link id="signup-btn" to='/signup'><Button>SignUp</Button></Link>
+                 <button id="login-btn" type="submit" >Login</button>
+                  <Link id="signup-btn" to='/signup'><button type="submit">SignUp</button></Link>
                   </div>
                   
                 </div>
