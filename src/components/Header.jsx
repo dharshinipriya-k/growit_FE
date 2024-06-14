@@ -158,12 +158,25 @@ function Header() {
                   </NavLink>
                 </div>
               </div>
+              <div>
+                    <div className="menu-line"></div>
+                    <div className="menu-line"></div>
+                    <div className="menu-line"></div>
             </div>
+            </div>
+
+           
+
           </div>
+
+
         </div>
+
+
+
       </header>
 
-      <header></header>
+      
     </>
   );
 }

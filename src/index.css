@@ -1,11 +1,5 @@
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  
-  
-}
+
 :root{
   --color-2AAA8A: #2AAA8A;
   --color-98FB98: #98FB98;
@@ -23,64 +17,77 @@ body{
 }
 
 /* ----------------------Header Part ---------------------- */
-.header-upper{
-  background-color: var(--color-98FB98);
-}
-#search-button{
+@media screen and (min-width: 1250px) {
+  .header-upper{
+    background-color: var(--color-98FB98);
+    width: 100% !important;
+   
+  }
+  #search-button{
+    
+    background-color: var(--color-2AAA8A);
+  }
   
-  background-color: var(--color-2AAA8A);
+  #search-button:hover{
+    background-color: green;
+  }
+  
+  #app-name {
+    height: 4rem;
+   margin-top: 0;
+  }
+  
+  
+  
+  .link-name{
+    text-decoration: none;
+    color:green;
+    font-weight: bolder ;
+    font-size:larger;
+    margin-top: 2rem
+  }
+  
+  .link-name:hover{
+    color:whitesmoke;
+    font-size: x-large;
+  }
+  
+  #profile-name{
+    color: black;
+    font-weight: bolder;
+  }
+  
+  #profile-icon{
+    margin-bottom: 0.5rem;
+    margin-right: 0.2rem;
+  }
+  
+  #badge{
+    background-color: #2AAA8A;
+    margin-left: 8px;
+    height: 1.5rem;
+    padding-top: 1px;
+  }
+  
+  #search-bar{
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+    margin-right: 0.2rem;
+  }
+  
+  #header-links{
+    margin-top: 1rem;
+  }
+
+
+  .menu-line{
+    height: 3px;
+    width: 25px;
+    background-color: green;
+    margin-bottom: 3px;
+  }
 }
 
-#search-button:hover{
-  background-color: green;
-}
-
-#app-name {
-  height: 4rem;
- margin-top: 0;
-}
-
-
-
-.link-name{
-  text-decoration: none;
-  color:green;
-  font-weight: bolder ;
-  font-size:larger;
-  margin-top: 2rem
-}
-
-.link-name:hover{
-  color:whitesmoke;
-  font-size: x-large;
-}
-
-#profile-name{
-  color: black;
-  font-weight: bolder;
-}
-
-#profile-icon{
-  margin-bottom: 0.5rem;
-  margin-right: 0.2rem;
-}
-
-#badge{
-  background-color: #2AAA8A;
-  margin-left: 8px;
-  height: 1.5rem;
-  padding-top: 1px;
-}
-
-#search-bar{
-  margin-left: 1.5rem;
-  margin-top: 1rem;
-  margin-right: 0.2rem;
-}
-
-#header-links{
-  margin-top: 1rem;
-}
 
 
 /* ----------------Footer Part---------------------- */
@@ -125,70 +132,198 @@ footer:not(:first-child){
 }
 
 /* -----------------Home Wrapper 1-----------------*/
-.carousel-image{
-  height: 30rem;
-  width: 100% !important;
+
+@media screen and  (max-width: 480px)  {
+  .carousel-image{
+    height: 20rem;
+   width: 100vw;
+    
+  }
+  
+  .carousel{
+    width: 100vw;
+    
+  }
 }
 
-.carousel{
-  width: 100%;
-  margin-left: 0 !important;
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .carousel-image{
+    height: 10rem;
+    width: fit-content;
+  }
+
+  .carousel-wrapper{
+    margin-left: 5px !important;
+  }
+  
+  /* .carousel{
+    width: 100vw;
+  } */
 }
 
-/* ----------------Home Wrapper 2------------------ */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .carousel-image{
+    height: 20rem;
+   width: 100vw;
+    
+  }
+  
+  .carousel{
+    width: 100vw;
+    
+  }
+}
 
-/* .home-wrapper-2{
-  background-color: var(--color-f5f5f7);
-} */
 
-#how-it-works-banner{
-  height: 23rem;
-  width: 100% !important;
+@media screen and (min-width:  1025px) {
+
+  .carousel-image{
+    height: 20rem;
+    width: 100vw;
+    
+  }
+  
+  .carousel{
+    width: 100vw;
+    
+  }
+}
+
+/* ----------------HOW IT WORKS IMAGE------------------ */
+
+@media screen and (max-width: 480px)  {
+  #how-it-works-banner{
+    height: 20rem;
+    width: 280vw ;
+    margin: 20px !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  #how-it-works-banner{
+    height: 20rem;
+    width: 100% ;
+    margin: 20px !important;
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width:1024px)  {
+  
+  #how-it-works-banner{
+    height: 250px !important;
+    width: 100%;
+    margin: 30px;
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px)  {
+  
+  #how-it-works-banner{
+    height: 300px !important;
+    width: 200vh;
+    margin: 30px;
+    
+  }
 }
 
 /* --------------Category section----------------- */
 
-.categories{
-  background-color: white;
-  box-shadow: 0 0 10px #0000001a;
-  width: 75rem;
-  margin: 2rem 5rem 0rem 2rem;
-  display: grid !important;
-  grid-template-columns: auto auto auto auto;
+@media screen and (min-width: 1250px) {
+  .categories{
+    background-color: white;
+    box-shadow: 0 0 10px #0000001a;
+    width: 75rem;
+    margin: 2rem 5rem 0rem 2rem;
+    display: grid !important;
+    grid-template-columns: auto auto auto auto;
+  }
+  
+  .category-image{
+    height: 12rem;
+    width: 12rem;
+  }
+  
+  .categories > div{
+    
+      padding: 2rem 3.3rem;
+      gap: 5rem;
+      cursor: pointer;
+  }
+  
+  .categories > div:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  
+  .category-text{
+   text-align: center;
+    margin-top: 0.5rem;
+    color:black;
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .logo-img{
+    height: 3rem;;
+    width: 5rem;
+  }
+  
+  .category-heading{
+    text-align: center;
+  }
 }
 
-.category-image{
-  height: 12rem;
-  width: 12rem;
-}
+@media screen  and (max-width: 480px){
 
-.categories > div{
-    /* width: 30%; */
-    padding: 2rem 3.3rem;
-    gap: 5rem;
-    cursor: pointer;
-}
+  .category-wrapper{
+    width: 280vw;
+    margin: 20px;
+  }
 
-.categories > div:hover{
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-}
+  .categories{
+    box-shadow: 0 0 10px #0000001a;
+    width: 280vw;
+    margin: 20px;
+    display: grid !important;
+    grid-template-columns: auto auto auto ;
+    
+  }
 
-.category-text{
- /* margin-left: 4rem; */
-  margin-top: 0.5rem;
-  text-decoration: none;
-  color:black;
-  font-size: large;
-  font-weight: bold;
-}
+  .category-image{
+    height: 12rem;
+    width: 12rem;
+  }
+  
+  .categories > div{
 
-.logo-img{
-  height: 3rem;;
-  width: 5rem;
-}
-
-.category-heading{
-  text-align: center;
+      padding: 5px 5px;
+      gap: 15px;
+      cursor: pointer;
+  }
+  
+  .categories > div:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  
+  .category-text{
+   margin-left: 0 !important;
+   text-align: left;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    color:black;
+    font-size:x-large;
+    font-weight: bold;
+  }
+  
+  /* .logo-img{
+    height: 1vh;
+    width: 5rem;
+  } */
+  
+  .category-heading{
+    text-align: center !important;
+  }
 }
 
 /* --------------------------------Popular Items Wrapper-3--------------------------------------- */

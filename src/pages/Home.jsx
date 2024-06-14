@@ -50,10 +50,8 @@ function Home() {
 
   return (
     <>
-      {/* CAROUSEL SECTION  */}
-      <Container class1="home-wrapper-1 py-5">
+   
         <div className="carousel-wrapper">
-          <div className="row">
             <Carousel fade className="carousel">
               <Carousel.Item>
                 <img
@@ -62,7 +60,6 @@ function Home() {
                   className="carousel-image"
                 />
               </Carousel.Item>
-
               <Carousel.Item>
                 <img
                   src={CarouselImage1}
@@ -86,14 +83,11 @@ function Home() {
               </Carousel.Item>
             </Carousel>
           </div>
-        </div>
-      </Container>
+ 
 
       {/* CATEGORY SECTION */}
-      <Container className="home-wrapper-3 py-5">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12">
+     
+              <div className="category-wrapper">
               <h2 className="category-heading">Categories</h2>
               <div className="categories">
                 <div onClick={() => navigate("shop/seeds")}>
@@ -149,19 +143,17 @@ function Home() {
                   <h5 className="category-text">Organic Pest Control</h5>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </Container>
+              </div>
+           
 
-      <section className="home-wrapper-3 py-5"></section>
+     
 
       {/* STORE HOURS */}
-      <section className="home-wrapper-5">
+      {/* <section className="home-wrapper-5">
         <div className="working-hours-img">
           <img src={workingHours} alt="" className="working-hours-img" />
         </div>
-      </section>
+      </section> */}
 
       {/* POPULAR ITEMS SECTION */}
       <div>
@@ -190,17 +182,17 @@ function Home() {
       </div>
 
       {/* HOW IT WORKS BANNER */}
-      <section className="home-wrapper-2 py-5">
+      {/* <section className="home-wrapper-3 py-5"> */}
         <div className="how-it-works-wrapper">
-          <div className="row">
+          {/* <div className="row"> */}
             <img
               src={HowItWorksBanner}
               alt="how-It-Works"
               id="how-it-works-banner"
             />
           </div>
-        </div>
-      </section>
+        {/* </div> */}
+      {/* </section> */}
 
       {/* BLOG SECTION */}
       <section className="blog-wrapper">
