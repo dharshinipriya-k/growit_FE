@@ -1,6 +1,18 @@
 import axios from "axios";
 import { base_url, config } from "../../utils/AxiosConfig";
-// import {useNavigate} from 'react-router-dom'
+
+const getToken = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+
+  export const config2 = {
+    headers: {
+        Authorization: `Bearer ${
+            getToken !== null ? getToken.token : ""
+        }`,
+        Accept: "application/json"
+    }
+  }
 
 const register = async(userData)=>{
     const response = await axios.post(`${base_url}user/register`, userData)
@@ -11,7 +23,6 @@ const register = async(userData)=>{
 }
 
 const login = async(userData)=>{
-    // const navigate = useNavigate()
     const response = await axios.post(`${base_url}user/login`, userData)
     if(response.data){
         localStorage.setItem('customer', JSON.stringify(response.data))
@@ -22,15 +33,14 @@ const login = async(userData)=>{
 
 const addToCart = async(cartData) => {
     const response = await axios.post(`${base_url}user/cart`, cartData, config)
-    // console.log(response);
+    console.log(response);
     if(response.data){
         return response.data
     }
 }
 
-const getCart = async() => {
-    const response = await axios.get(`${base_url}user/cart`, config)
-    // console.log(response);
+const getCart = async(data) => {
+    const response = await axios.get(`${base_url}user/cart`,data, config)
     if(response.data){
         return response.data
     }
@@ -38,7 +48,7 @@ const getCart = async() => {
 }
 
 const removeFromCart = async(cartItemId) => {
-// console.log(cartItemId);
+
     const response = await axios.delete(`${base_url}user/delete-cart/${cartItemId}`,config)
     if(response.data){
         return response.data
@@ -46,7 +56,7 @@ const removeFromCart = async(cartItemId) => {
 }
 
 const updateCartQuantity = async(cartData) => {
-    // console.log(cartItemId);
+
         const response = await axios.delete(`${base_url}user/update-prod-cart/${cartData.cartItemId}/${cartData.quantity}`,config)
         if(response.data){
             return response.data
@@ -70,7 +80,7 @@ const getMyOrders = async() => {
 }
 
 const updateUser = async(data) => {
-    const response = await axios.put(`${base_url}user/edit`,data, config)
+    const response = await axios.put(`${base_url}user/edit`,data.data, data.config2)
     if(response.data){
         return response.data
     }

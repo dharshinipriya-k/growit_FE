@@ -1,52 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { IoPerson } from "react-icons/io5";
-import logo from '../assets/app-name.gif';
+import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import logo from "../assets/app-name.gif";
 import { getUserCart } from "../features/user/UserSlice";
-import Dropdown from 'react-bootstrap/Dropdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
-import { getAProduct } from '../features/products/ProductSlice';
+import Dropdown from "react-bootstrap/Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { getAProduct } from "../features/products/ProductSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const cartState = useSelector((state) => state?.auth?.cartItems)
-  const authState = useSelector(state => state?.auth)
-  const productState = useSelector(state => state?.product?.products)
-  // const productsState = useSelector(state => )
-  const [productOpt, setProductOpt] = useState([])
+  // States fetched from redux store
+  const cartState = useSelector((state) => state?.auth?.cartItems);
+  const authState = useSelector((state) => state?.auth);
+  const productState = useSelector((state) => state?.product?.products);
+
+  const [productOpt, setProductOpt] = useState([]);
   const [paginate, setPaginate] = useState(true);
-  const [total, setTotal] = useState(null)
-
-  useEffect(()=>{
-  let sum =0 
-  for (let index = 0; index < cartState?.length; index++) {
-    sum = sum+(Number(cartState[index]?.quantity) * Number(cartState[index]?.price))
-      setTotal(sum)
-  }
-
-  },[cartState])
+  const [total, setTotal] = useState(null);
 
   useEffect(() => {
-    let data = []
+    let sum = 0;
+    for (let index = 0; index < cartState?.length; index++) {
+      sum =
+        sum +
+        Number(cartState[index]?.quantity) * Number(cartState[index]?.price);
+      setTotal(sum);
+    }
+  }, [cartState]);
+
+  // Fetching searched data through search column
+
+  useEffect(() => {
+    let data = [];
     for (let index = 0; index < productState?.length; index++) {
       const element = productState[index];
-      data.push({id: index, prod: element?._id, name: element?.title})
-    } 
-    setProductOpt(data)
-    
-  },[productState])
+      data.push({ id: index, prod: element?._id, name: element?.title });
+    }
+    setProductOpt(data);
+  }, [productState]);
 
   const handleLogout = () => {
-    localStorage.clear()
-    window.location.reload()
-  }
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return (
     <>
@@ -54,9 +55,6 @@ function Header() {
         <div className="">
           <div className="row">
             <div className="col-2">
-              {/* <h1>
-              <Link  ><img src={logo} alt="logo" id='app-name' /></Link>
-            </h1> */}
               <h1>
                 <Link>
                   <img src={logo} alt="logo" id="app-name" />
@@ -65,26 +63,21 @@ function Header() {
             </div>
             <div className="col-4">
               <div className="input-group ">
-                
                 <InputGroup className="mb-3" id="search-bar">
                   <Typeahead
                     id="pagination-example"
                     onPaginate={() => console.log("Results paginated")}
                     onChange={(selected) => {
-                        navigate(`/product/${selected[0]?.prod}`)
-                        dispatch(getAProduct(selected[0]?.prod))
+                      navigate(`/product/${selected[0]?.prod}`);
+                      dispatch(getAProduct(selected[0]?.prod));
                     }}
                     options={productOpt}
                     paginate={paginate}
-                    labelKey={'name'}
+                    labelKey={"name"}
                     minLength={2}
                     placeholder="Search for Products here..."
                   />
-                  {/* <Form.Control
-                    placeholder="Search product"
-                    aria-label="Search product"
-                    aria-describedby="basic-addon2"
-                  /> */}
+
                   <Button
                     variant="outline-secondary"
                     className="text-white"
@@ -175,4 +168,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;

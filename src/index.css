@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   
+  
 }
 :root{
   --color-2AAA8A: #2AAA8A;
@@ -151,7 +152,7 @@ footer:not(:first-child){
   background-color: white;
   box-shadow: 0 0 10px #0000001a;
   width: 75rem;
-  margin: 2rem 5rem 0rem 10rem;
+  margin: 2rem 5rem 0rem 2rem;
   display: grid !important;
   grid-template-columns: auto auto auto auto;
 }
@@ -173,8 +174,12 @@ footer:not(:first-child){
 }
 
 .category-text{
-  text-align: center !important;
-  margin-top: 0.3rem;
+ /* margin-left: 4rem; */
+  margin-top: 0.5rem;
+  text-decoration: none;
+  color:black;
+  font-size: large;
+  font-weight: bold;
 }
 
 .logo-img{
@@ -271,6 +276,10 @@ Button{
   
 }
 
+/* .card-image{
+  height: 15rem !important;
+} */
+
 /* Button:hover{
   background-color: #98FB98 !important;
 } */
@@ -287,7 +296,7 @@ Button{
 
 .popular-wrapper{
   display: grid !important;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto ;
   /* width: 100%; */
   margin-left: 8rem;
 }
@@ -510,6 +519,18 @@ color: green;
 
 #login-btn{
   color: white;
+  width: 5rem;
+  border-radius: 5px;
+}
+
+#signup-btn{
+  color: white  !important;
+  width: 5rem;
+  border-radius: 5px;
+}
+
+#create-btn{
+  color: white  !important;
   width: 5rem;
   border-radius: 5px;
 }
@@ -775,10 +796,11 @@ font-weight: 400;
   width: 10rem;
 }
 
-/* .price{
-  margin-top: 4rem;
+ .price{
+  /* margin-top: 4rem; */
+  color: green;
 }
-
+/*
 .total-price{
   margin-top: 4rem;
 } */
@@ -867,4 +889,45 @@ font-weight: 400;
 #sub-btn{
   background-color: green;
   width: 5rem;
+}
+
+
+/* ----------------------------------------youmaylike-sec----------------------------------------------------------------------------------- */
+.youmaylike-sec{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.cod-btn{
+  color: white;
+  height: 3rem;
+  width: 26rem;
+  border-radius: 6px;
+}
+
+.orderplaced-img{
+  height: 30rem;
+  width: 50%;
+}
+
+.go-to-orders{
+  height: 3rem;
+  margin-left: 10rem;
+}
+
+
+/* ---------------------------------ABOUT PAGE-------------------------------------------------------------------- */
+.about-wrapper{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+
+.aboutPage-logo{
+  width: 50%;
+  height: 30rem;
+}
+
+.about-contents{
+  margin-top: 8rem;
 }

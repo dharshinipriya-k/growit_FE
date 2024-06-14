@@ -21,7 +21,6 @@ function ResetPassword() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const getToken = location.pathname.split('/')[2]
-  // console.log(getToken);
 
   const formik = useFormik({
     initialValues: {
@@ -93,20 +92,6 @@ function ResetPassword() {
                 }
                 </div> 
 
-                {/* <div>
-                {
-                  (formik.values.password === formik.values.confirmPassword) ? 
-                  ""
-                  :
-                   
-                  
-                  <div className="error">
-                    {
-                        formik.touched.confirmPassword && formik.errors.confirmPassword
-                    }
-                  </div> 
-                }
-                </div> */}
                            
                 <div>
                   <Link><Button type='submit' id="create-btn">Change Password</Button></Link>

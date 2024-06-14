@@ -17,7 +17,6 @@ function Orders() {
 
   const viewItems = async(index) => {
     <Navigate to={<OrderedItems items={orderState[index]?.orderItems}/>}/>
-    // console.log(orderState[index]?.orderItems);
   }
 
   return (
@@ -46,8 +45,7 @@ function Orders() {
           </tr>
           })
         }
-        
-        
+
       </tbody>
     </Table>
       </Container>

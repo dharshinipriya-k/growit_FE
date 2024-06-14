@@ -1,30 +1,35 @@
-import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from "formik";
+import React, { useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import * as yup from 'yup';
+import * as yup from "yup";
 import Breadcrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import { registerUser } from '../features/user/UserSlice';
+import { registerUser } from "../features/user/UserSlice";
 
 const signUpSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().nullable().email('Enter a valid email').required('Email is required'),
-  mobile: yup.string().required('Mobile No is required')
-  .matches(/^[0-9]+$/, "Must be only digits")
-  .min(10, 'Must be 10 digits')
-  .max(10, 'Must be 10 digits'),
-  password: yup.string().required('Password is required'),
-  reenterpassword: yup.string().required('Enter your password again'),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup
+    .string()
+    .nullable()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  mobile: yup
+    .string()
+    .required("Mobile No is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(10, "Must be 10 digits")
+    .max(10, "Must be 10 digits"),
+  password: yup.string().required("Password is required"),
+  reenterpassword: yup.string().required("Enter your password again"),
 });
 
 function Signup() {
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const authState = useSelector(state => state?.auth)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const authState = useSelector((state) => state?.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -36,30 +41,30 @@ function Signup() {
       reenterpassword: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      dispatch(registerUser(values))
+    onSubmit: (values, { resetForm }) => {
+      dispatch(registerUser(values));
+      resetForm();
+      navigate("/login");
     },
-   
-  })
+  });
 
   useEffect(() => {
-    if(authState?.createdUser ==! null && authState?.isError === false){
-      navigate('/login')
+    if (authState?.createdUser == !null && authState?.isError === false) {
+      navigate("/login");
     }
-  },[])
+  }, []);
 
-  return <>
+  return (
+    <>
+      <Meta title={"SignUp"} />
+      <Breadcrumb title=" SignUp" />
 
-  <Meta title={"SignUp"} />
-  <Breadcrumb title=" SignUp" />
-
-  <div className="signup-wrapper py-5">
+      <div className="signup-wrapper py-5">
         <div className="row">
           <div className="col-12">
             <div className="signup-card">
               <h5>Create Account</h5>
-              
+
               <form action="" onSubmit={formik.handleSubmit}>
                 <div>
                   <input
@@ -68,15 +73,13 @@ function Signup() {
                     placeholder="First Name"
                     className="form-control"
                     value={formik.values.firstName}
-                    onChange={formik.handleChange('firstName')}
-                    onBlur={formik.handleBlur('firstName')}
+                    onChange={formik.handleChange("firstName")}
+                    onBlur={formik.handleBlur("firstName")}
                   />
                 </div>
 
                 <div className="error">
-                  {
-                    formik.touched.firstName && formik.errors.firstName
-                  }
+                  {formik.touched.firstName && formik.errors.firstName}
                 </div>
 
                 <div>
@@ -86,15 +89,13 @@ function Signup() {
                     placeholder="Last Name"
                     className="form-control"
                     value={formik.values.lastName}
-                    onChange={formik.handleChange('lastName')}
-                    onBlur={formik.handleBlur('lastName')}
+                    onChange={formik.handleChange("lastName")}
+                    onBlur={formik.handleBlur("lastName")}
                   />
                 </div>
 
                 <div className="error">
-                  {
-                    formik.touched.lastName && formik.errors.lastName
-                  }
+                  {formik.touched.lastName && formik.errors.lastName}
                 </div>
 
                 <div>
@@ -104,15 +105,13 @@ function Signup() {
                     placeholder="Email"
                     className="form-control"
                     value={formik.values.email}
-                    onChange={formik.handleChange('email')}
-                    onBlur={formik.handleBlur('email')}
+                    onChange={formik.handleChange("email")}
+                    onBlur={formik.handleBlur("email")}
                   />
                 </div>
 
                 <div className="error">
-                  {
-                    formik.touched.email && formik.errors.email
-                  }
+                  {formik.touched.email && formik.errors.email}
                 </div>
 
                 <div>
@@ -122,15 +121,13 @@ function Signup() {
                     placeholder="Mobile Number"
                     className="form-control"
                     value={formik.values.mobile}
-                    onChange={formik.handleChange('mobile')}
-                    onBlur={formik.handleBlur('mobile')}
+                    onChange={formik.handleChange("mobile")}
+                    onBlur={formik.handleBlur("mobile")}
                   />
                 </div>
 
                 <div className="error">
-                  {
-                    formik.touched.mobile && formik.errors.mobile
-                  }
+                  {formik.touched.mobile && formik.errors.mobile}
                 </div>
 
                 <div>
@@ -140,15 +137,13 @@ function Signup() {
                     placeholder="Password"
                     className="form-control"
                     value={formik.values.password}
-                    onChange={formik.handleChange('password')}
-                    onBlur={formik.handleBlur('password')}
+                    onChange={formik.handleChange("password")}
+                    onBlur={formik.handleBlur("password")}
                   />
                 </div>
 
                 <div className="error">
-                  {
-                    formik.touched.password && formik.errors.password
-                  }
+                  {formik.touched.password && formik.errors.password}
                 </div>
 
                 <div>
@@ -158,26 +153,28 @@ function Signup() {
                     placeholder="Confirm password"
                     className="form-control"
                     value={formik.values.reenterpassword}
-                    onChange={formik.handleChange('reenterpassword')}
-                    onBlur={formik.handleBlur('reenterpassword')}
+                    onChange={formik.handleChange("reenterpassword")}
+                    onBlur={formik.handleBlur("reenterpassword")}
                   />
-                </div>    
+                </div>
 
                 <div className="error">
-                  {
-                    formik.touched.reenterpassword && formik.errors.reenterpassword
-                  }
+                  {formik.touched.reenterpassword &&
+                    formik.errors.reenterpassword}
                 </div>
-         
+
                 <div>
-                  <button type='submit' id="create-btn">Create</button>
+                  <button type="submit" id="create-btn">
+                    Create
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-  </>
+    </>
+  );
 }
 
-export default Signup
+export default Signup;

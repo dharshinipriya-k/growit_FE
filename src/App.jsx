@@ -21,10 +21,12 @@ import Cart from './pages/Cart'
 import CheckOut from './pages/CheckOut'
 import Payment from './pages/Payment'
 import Orders from './pages/Orders'
+import OrderPlaced from './pages/OrderPlaced'
 import { ProtectedRoutes } from './routes/ProtectedRoutes'
 import { OpenRoutes } from './routes/OpenRoutes'
 import OrderedItems from './pages/OrderedItems'
 import Profile from './pages/Profile'
+import CategoryWiseProduct from './pages/CategoryWiseProduct'
 
 
 function App() {
@@ -37,8 +39,9 @@ function App() {
           <Route path='about' element={<About/>}/>
           <Route path='contact' element={<Contact/>}/>
           <Route path='shop' element={<Shop/>}/>
+          <Route path='shop/:category' element={<CategoryWiseProduct/>} />
           <Route path='product/:id' element={<ProductPage/>}/>
-          <Route path='blogs' element = {<Blogs/>} />
+          <Route path='blogs' element = {<Blogs/>} /> 
           <Route path='blog/:id' element = {<BlogPage/>} />
           <Route path='contact' element = {<Contact/>} />
           <Route path='wishlist' element = {<Wishlist/>} />
@@ -56,6 +59,7 @@ function App() {
           <Route path='my-orders' element = {<ProtectedRoutes><Orders/></ProtectedRoutes>} />
           <Route path='order-items/:id' element={<ProtectedRoutes><OrderedItems/></ProtectedRoutes>} />
           <Route path='/my-profile' element={<ProtectedRoutes><Profile/></ProtectedRoutes>} />
+          <Route path='orderplaced' element={<ProtectedRoutes><OrderPlaced/></ProtectedRoutes>} />
         </Route>
                
       </Routes>

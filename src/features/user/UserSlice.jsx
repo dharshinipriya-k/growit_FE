@@ -1,6 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { authService } from './UserService'
+export const base_url = "http://localhost:8000/api/";
+
+const getToken = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+
+  export const config = {
+    headers: {
+        Authorization: `Bearer ${
+            getToken !== null ? getToken.token : ""
+        }`,
+        Accept: "application/json"
+    }
+  }
 
 export const registerUser = createAsyncThunk("auth/register", async(userData,thunkAPI) =>{
     try {
@@ -19,6 +33,7 @@ export const login = createAsyncThunk("auth/login", async(userData,thunkAPI) =>{
 })
 
 export const addToCart = createAsyncThunk("user/cart/add", async(cartData,thunkAPI) =>{
+    console.log(cartData);
     try {
         return await authService.addToCart(cartData)
     } catch (error) {
@@ -26,9 +41,9 @@ export const addToCart = createAsyncThunk("user/cart/add", async(cartData,thunkA
     }
 })
 
-export const getUserCart = createAsyncThunk("user/cart/get", async(thunkAPI) =>{
+export const getUserCart = createAsyncThunk("user/cart/get", async(data,thunkAPI) =>{
     try {
-        return await authService.getCart()
+        return await authService.getCart(data)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
@@ -67,7 +82,8 @@ export const getUserOrders = createAsyncThunk("user/orders/get", async(thunkAPI)
     }
 })
 
-export const updateProfile = createAsyncThunk("user/profile/update", async(data, thunkAPI) =>{
+export const updateProfile = createAsyncThunk("user/profile/update", async(data, config2, thunkAPI) =>{
+    console.log(config2);
     try {
         return await authService.updateUser(data)
     } catch (error) {
@@ -173,7 +189,7 @@ export const authSlice = createSlice({
             state.isSuccess = false
             state.message = action.error
             if(state.isSuccess === false){
-                toast.error('Session expired! Login again!')
+                toast.error(`${action.payload.response.data.message}`)
             }
             
         })
@@ -248,9 +264,9 @@ export const authSlice = createSlice({
         state.isError = false
         state.isSuccess = true  
         state.orderInfo = action.payload
-        if(state.isSuccess){
-            toast.success('Your order has been Placed Successfully!!')
-        }
+        // if(state.isSuccess){
+        //     toast.success('Your order has been Placed Successfully!!')
+        // }
 
 
         })
@@ -295,15 +311,15 @@ export const authSlice = createSlice({
             let currentUserData = JSON.parse(localStorage.getItem('customer'))
             console.log(currentUserData);
             let newUserData = {
-                _id: currentUserData?._id,
-                token: action?.payload?.token,
+                _id: currentUserData?.id,
+                token: currentUserData?.token,
                 firstName: action?.payload?.firstName,
                 lastName: action?.payload?.lastName,
                 mobile: action?.payload?.mobile,
                 email: action?.payload?.email
 
             }
-            console.log(newUserData);
+            console.log(JSON.stringify(newUserData));
             localStorage.setItem('customer',JSON.stringify(newUserData))
             state.user = newUserData
             toast.success('Profile updated Successfully')

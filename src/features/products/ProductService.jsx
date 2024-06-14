@@ -2,18 +2,14 @@ import axios from "axios";
 import { base_url, config } from "../../utils/AxiosConfig";
 
 const getProducts = async(data)=>{
-   
     const response = await axios.get(`${base_url}product?${data?.category?`category=${data?.category}&&`:""}`)
     if(response.data){
         return response.data
     }
 }
 
-// ${data?.category?`category=${data?.category}&&`:""
-
 const getSingleProduct = async(id)=>{
     const response = await axios.get(`${base_url}product/${id}`)
-    // console.log(response);
     if(response.data){
         return response.data
     }

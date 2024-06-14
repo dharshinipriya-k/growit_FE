@@ -8,7 +8,6 @@ import { createEnquiry } from '../features/contact/ContactSlice';
 
 const contactSchema = yup.object({
   name: yup.string().required(' Name is Required'),
-  
   email: yup.string().email('Email should be valid').required('Email is Required'),
   mobile: yup.string().required('Mobile No Required'),
   comment: yup.string().required('Comments Required')
@@ -21,7 +20,6 @@ function Contact() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      
       email:"",
       mobile: "",
       comment: "",
@@ -31,7 +29,6 @@ function Contact() {
     onSubmit: values => {
       dispatch(createEnquiry({
         name: values.name,
-        
         email: values.email,
         mobile: values.mobile,
         comment: values.comment

@@ -6,11 +6,11 @@ import OrderItemsCard from '../components/OrderItemsCard';
 function OrderedItems() {
    const location = useLocation()
    const {data} = location.state
-//    console.log(data?.orderItems);
+   
   return  <div className="col-9">
   
   <div className="products-card-wrapper">
-        <OrderItemsCard data={data?.orderItems}/>
+        <OrderItemsCard data={data}/>
   </div>
 </div>
 }

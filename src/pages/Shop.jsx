@@ -11,10 +11,9 @@ function Shop() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const productState = useSelector((state) => state?.product?.products)
-  // console.log(productState);
+
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState(null)
-  
  
   useEffect(() => {
     
@@ -24,10 +23,7 @@ function Shop() {
       category.push(element?.category)
     }
     setCategories(category)
-    // console.log(categories);
   },[productState])
-
-  console.log([...new Set(categories)]);
 
   useEffect(() => {
     getProducts()
@@ -36,7 +32,7 @@ function Shop() {
 
   const getProducts = () => {
     dispatch(getAllProducts({category}))
-    
+                                                                                             
  }
   
   return <>
@@ -51,7 +47,7 @@ function Shop() {
                 <h3 className="filter-title">Shop By Category</h3>
                 <div>
                   <ul className='ps-0'>
-                    {/* {console.log([...new Set(category)], [...new Set(tags)])} */}
+                    
                     {
                       categories && [...new Set(categories)].map((item, index) => {
                         return <li key={index} onClick={() => setCategory(item)}>{item}</li>
@@ -62,42 +58,13 @@ function Shop() {
                 </div>
               </div>
 
-              <div className='filter-card mb-3'>
-                <h3 className="filter-title">Filter By</h3>
-                <div>
-                  <h5 className='sub-title'>Availability</h5>
-                  <div className="form-check">
-                    <input className='form-check-input' type='checkbox' value='' id='' />
-                    <label className='form-check-label' htmlFor=''>In Stock</label>
-                  </div>
-
-                    <div className="form-check">
-                    <input className='form-check-input' type='checkbox' value='' id='' />
-                    <label className='form-check-label' htmlFor=''>Out Of Stock</label>
-                    </div>
-                </div>
-              </div>
             </div>
 
             <div className="col-9">
               <p>{`Showing all ${productState?.length} result(s)`}</p>
               <div className="products-card-wrapper">
                     <ProductCard data={productState}/>
-                    {/* {
-            productState && productState?.map((item,index) => {
-              if(item.tags === 'popular'){
-                return <PopularProduct 
-                            key={index} 
-                            title={item?.title} 
-                            totalrating = {item?.totalrating[0]?.toString()}    
-                            price = {item?.price}
-                            stock= {item?.stock}
-                            category = {item?.category}
-                            id = {item?._id}
-                        />;
-              }
-            })
-          } */}
+                   
               </div>
             </div>
 

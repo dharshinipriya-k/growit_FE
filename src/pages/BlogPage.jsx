@@ -9,11 +9,11 @@ function BlogPage() {
 
   const blogState = useSelector((state) => state?.blog?.oneBlog?.findBlog)
 
+  // Getting blog Id to fetch particular blog
   const location = useLocation()
   const getBlogId = location.pathname.split('/')[2]
 
   const dispatch = useDispatch()
-  console.log(blogState);
 
   useEffect(() => {
     getBlog()
@@ -41,7 +41,7 @@ function BlogPage() {
               </div>
               <div className="blg-img">
                 <img
-                  src="https://www.homefortheharvest.com/wp-content/uploads/2023/03/10-gardening-blogs-to-check-out-this-spring.jpg"
+                  src={blogState?.image}
                   alt=""
                  
                 />

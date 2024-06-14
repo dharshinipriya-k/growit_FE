@@ -1,18 +1,23 @@
 import moment from "moment";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
-import ReactStars from 'react-rating-stars-component';
+import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import CarouselImage1 from "../assets/carousel1.webp";
 import CarouselImage2 from "../assets/carousel2.webp";
 import CarouselImage3 from "../assets/carouselThree.jpg";
 import Cocopeat from "../assets/cocopeat.jpg";
 import Manure from "../assets/compost.jpg";
 import GrowBags from "../assets/growBags.jpeg";
+import GrowthPromoters from "../assets/growth.jpg";
 import HowItWorksBanner from "../assets/how-it-works.webp";
 import Seeds from "../assets/seeds.jpg";
+import Plants from "../assets/plants.webp";
+import PestControl from "../assets/pest.webp";
+import Accessories from "../assets/accessories.jpg";
 import workingHours from "../assets/working.webp";
 import BlogCard from "../components/BlogCard";
 import Container from "../components/Container";
@@ -23,17 +28,16 @@ import PopularProduct from "../components/PopularProduct";
 
 function Home() {
   const blogState = useSelector((state) => state?.blog?.blog);
-  const productState = useSelector((state) => state.product?.products)
-  const cartState = useSelector((state) => state?.auth?.cartItems)
-  // console.log(productState);
+  const productState = useSelector((state) => state.product?.products);
+  const cartState = useSelector((state) => state?.auth?.cartItems);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     getBlogs();
-    getProducts()
-    getUserCart()
+    getProducts();
+    getUserCart();
   }, []);
 
   const getBlogs = () => {
@@ -41,9 +45,8 @@ function Home() {
   };
 
   const getProducts = () => {
-    dispatch(getAllProducts())
-  }
-
+    dispatch(getAllProducts());
+  };
 
   return (
     <>
@@ -53,7 +56,6 @@ function Home() {
           <div className="row">
             <Carousel fade className="carousel">
               <Carousel.Item>
-                {/* <CarouselImage1 text="Let's Grow Together" /> */}
                 <img
                   src={CarouselImage2}
                   alt="Let's Grow It Together"
@@ -62,7 +64,6 @@ function Home() {
               </Carousel.Item>
 
               <Carousel.Item>
-                {/* <CarouselImage1 text="Let's Grow Together" /> */}
                 <img
                   src={CarouselImage1}
                   alt="Let's Grow It Together"
@@ -74,7 +75,6 @@ function Home() {
               </Carousel.Item>
 
               <Carousel.Item>
-                {/* <CarouselImage1 text="Let's Grow Together" /> */}
                 <img
                   src={CarouselImage3}
                   alt="Let's Grow It Together"
@@ -96,12 +96,14 @@ function Home() {
             <div className="col-12">
               <h2 className="category-heading">Categories</h2>
               <div className="categories">
-                <div>
+                <div onClick={() => navigate("shop/seeds")}>
                   <img src={Seeds} alt="sseedd" className="category-image" />
-                  <h5 className="category-text">Seeds</h5>
+                  <h4 className="category-text" to={"/shop"}>
+                    Seeds
+                  </h4>
                 </div>
 
-                <div>
+                <div onClick={() => navigate("shop/grow_bags")}>
                   <img
                     src={GrowBags}
                     alt="growbag"
@@ -110,23 +112,41 @@ function Home() {
                   <h5 className="category-text">Grow bags</h5>
                 </div>
 
-                <div>
+                <div onClick={() => navigate("shop/soil")}>
                   <img
                     src={Cocopeat}
                     alt="growbag"
                     className="category-image"
                   />
-                  <h5 className="category-text">Soil & Coco</h5>
+                  <h5 className="category-text">Soil & Cocopeat</h5>
                 </div>
 
-                <div>
+                <div onClick={() => navigate("shop/Fertilizers")}>
                   <img src={Manure} alt="growbag" className="category-image" />
-                  <h5 className="category-text">Manure & Fertilizers</h5>
+                  <h5 className="category-text">Fertilizers</h5>
                 </div>
 
-                <div>
-                  <img src={Manure} alt="growbag" className="category-image" />
-                  <h5 className="category-text">Growth Promoters</h5>
+                <div onClick={() => navigate("shop/Accessories")}>
+                  <img
+                    src={Accessories}
+                    alt="Accessories"
+                    className="category-image"
+                  />
+                  <h5 className="category-text">Accessories</h5>
+                </div>
+
+                <div onClick={() => navigate("shop/Plants")}>
+                  <img src={Plants} alt="Plants" className="category-image" />
+                  <h5 className="category-text">Plants</h5>
+                </div>
+
+                <div onClick={() => navigate("shop/PestControl")}>
+                  <img
+                    src={PestControl}
+                    alt="Pest Control"
+                    className="category-image"
+                  />
+                  <h5 className="category-text">Organic Pest Control</h5>
                 </div>
               </div>
             </div>
@@ -144,38 +164,28 @@ function Home() {
       </section>
 
       {/* POPULAR ITEMS SECTION */}
-      {/* <section className='home-wrapper-4'>
-     <h1> Most Popular</h1>
-      <div className="popular">
-
-      <ReactCardSlider slides = {slides} />
-      </div>
-    </section> */}
-
-      {/* POPULAR ITEMS SECTION */}
       <div>
         <div className="col-12">
           <h3 className="popular-sec-heading">Most Popular</h3>
         </div>
-        <div className="popular-wrapper">  
-      
-          {
-            productState && productState?.map((item,index) => {
-              if(item.tags === 'popular'){
-                return <PopularProduct 
-                            key={index} 
-                            title={item?.title} 
-                            totalrating = {item?.totalrating[0]?.toString()}    
-                            price = {item?.price}
-                            stock= {item?.stock}
-                            category = {item?.category}
-                            id = {item?._id}
-                        />;
+        <div className="popular-wrapper">
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "popular") {
+                return (
+                  <PopularProduct
+                    key={index}
+                    title={item?.title}
+                    totalrating={item?.totalrating[0]?.toString()}
+                    price={item?.price}
+                    stock={item?.stock}
+                    category={item?.category}
+                    id={item?._id}
+                    img={item?.images}
+                  />
+                );
               }
-            })
-          }
-
-
+            })}
         </div>
       </div>
 
@@ -201,24 +211,24 @@ function Home() {
             </div>
           </div>
           <div className="row">
-            
-            {blogState && 
-            blogState?.map((item, index) => {
-              if(index<3){
-                return (
-                  <div key={index} className="col-3 ">
-                    <BlogCard
-                      id={item?._id}
-                      title={item?.title}
-                      description={item?.description}
-                      date={moment(item?.created_at).format(
-                        "MMMM DD YYYY, h:mm:ss a"
-                      )}
-                    />
-                  </div>
-                );
-              }
-            })}
+            {blogState &&
+              blogState?.map((item, index) => {
+                if (index < 4) {
+                  return (
+                    <div key={index} className="col-3 ">
+                      <BlogCard
+                        id={item?._id}
+                        title={item?.title}
+                        description={item?.description}
+                        image={item?.image}
+                        date={moment(item?.created_at).format(
+                          "MMMM DD YYYY, h:mm:ss a"
+                        )}
+                      />
+                    </div>
+                  );
+                }
+              })}
           </div>
         </div>
       </section>
