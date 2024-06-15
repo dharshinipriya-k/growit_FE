@@ -28,7 +28,6 @@ const shippingSchema = yup.object({
 });
 
 function CheckOut() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,48 +69,85 @@ function CheckOut() {
     <>
       <div className="checkout-wrapper py-5">
         <div className="container-xxl">
-          <div className="row">
+          <div className="row" id="checkout-layout">
+            {payment ? (
+              <Payment
+                data={total + 30}
+                address={shippingInfo}
+                user={authState}
+                orderDetails={cartState}
+              />
+            ) : (
+              <div className="col-5">
+                <div className="border-bottom py-4">
+                  {cartState &&
+                    cartState?.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="d-flex gap-10 mb-2 align-items-center"
+                        >
+                          <div className="w-75 d-flex gap-10">
+                            <div className="w-25 position-relative">
+                              <span
+                                style={{ top: "-10px", right: "2px" }}
+                                className="badge bg-info text-white rounded-circle p-2 position-absolute"
+                              >
+                                {item?.quantity}
+                              </span>
+                              <img
+                                id="checkout-img"
+                                className="img-fluid"
+                                src={item?.productId?.images}
+                                alt="prod_img"
+                              />
+                            </div>
+                            <div>
+                              <h5 className="total-price">
+                                {item?.productId?.title}
+                              </h5>
+                              <p className="total-price">
+                                {item?.productId?.category}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex-grow-1">
+                            <h5 className="total">
+                              $ {item?.productId?.price * item?.quantity}
+                            </h5>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+
+                <div className="border-bottom py-4">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <p className="total">SubTotal</p>
+                    <p className="total-price">
+                      $ <b>{total ? total : 0}</b>
+                    </p>
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center border-bottom py-4">
+                    <p className="mb-0 total">Shipping</p>
+                    <p className="mb-0 total-price">
+                      $ <b>30</b>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center">
+                  <h4 className="total">Total</h4>
+                  <h3 className="total-price">$ {total ? total + 30 : 0}</h3>
+                </div>
+              </div>
+            )}
+
             <div className="col-7">
               <div className="checkout-left-data">
                 <h3 className="website-name">GrowIt</h3>
-                <nav
-                  style={{ "--bs-breadcrumb-divider": "'>'" }}
-                  aria-label="breadcrumb"
-                >
-                  <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                      <Link
-                        to="/cart"
-                        className="text-dark text-decoration-none total-price"
-                      >
-                        Cart
-                      </Link>
-                    </li>
-                    &nbsp;
-                    <li
-                      className="breadcrumb-item active text-dark total-price"
-                      aria-current="page"
-                    >
-                      Information
-                    </li>
-                    <li className="breadcrumb-item active total-price">
-                      <Link
-                        to="/cart"
-                        className="text-dark text-decoration-none"
-                      >
-                        Shipping
-                      </Link>
-                    </li>
-                    &nbsp;
-                    <li
-                      className="breadcrumb-item active text-dark total-price"
-                      aria-current="page"
-                    >
-                      Payment
-                    </li>
-                  </ol>
-                </nav>
-
                 <h4 className="checkout-title total">Contact Information</h4>
                 <p className="user-details total">
                   {authState?.firstName} ({authState?.email})
@@ -288,80 +324,6 @@ function CheckOut() {
                 </form>
               </div>
             </div>
-            {payment ? (
-              <Payment
-                data={total + 30}
-                address={shippingInfo}
-                user={authState}
-                orderDetails={cartState}
-              />
-            ) : (
-              <div className="col-5">
-                <div className="border-bottom py-4">
-                  {cartState &&
-                    cartState?.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="d-flex gap-10 mb-2 align-items-center"
-                        >
-                          <div className="w-75 d-flex gap-10">
-                            <div className="w-25 position-relative">
-                              <span
-                                style={{ top: "-10px", right: "2px" }}
-                                className="badge bg-info text-white rounded-circle p-2 position-absolute"
-                              >
-                                {item?.quantity}
-                              </span>
-                              <img
-                                id="checkout-img"
-                                className="img-fluid"
-                                src={item?.productId?.images}
-                                alt="prod_img"
-                              />
-                            </div>
-                            <div>
-                              <h5 className="total-price">
-                                {item?.productId?.title}
-                              </h5>
-                              <p className="total-price">
-                                {item?.productId?.category}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex-grow-1">
-                            <h5 className="total">
-                              $ {item?.productId?.price * item?.quantity}
-                            </h5>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-
-                <div className="border-bottom py-4">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <p className="total">SubTotal</p>
-                    <p className="total-price">
-                      $ <b>{total ? total : 0}</b>
-                    </p>
-                  </div>
-
-                  <div className="d-flex justify-content-between align-items-center border-bottom py-4">
-                    <p className="mb-0 total">Shipping</p>
-                    <p className="mb-0 total-price">
-                      $ <b>30</b>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="d-flex justify-content-between align-items-center">
-                  <h4 className="total">Total</h4>
-                  <h3 className="total-price">$ {total ? total + 30 : 0}</h3>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

@@ -99,7 +99,7 @@ function ProductPage() {
       <Breadcrumb title={productState?.title} />
       <div className="main-product-wrapper py-5">
         <div className="container-xxl">
-          <div className="row">
+          <div className="row" id="product-details">
             <div className="col-5">
               <img src={productState?.images} alt="" className="prod-image" />
             </div>

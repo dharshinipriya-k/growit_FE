@@ -23,7 +23,7 @@ const signUpSchema = yup.object({
     .min(10, "Must be 10 digits")
     .max(10, "Must be 10 digits"),
   password: yup.string().required("Password is required"),
-  reenterpassword: yup.string().required("Enter your password again"),
+  
 });
 
 function Signup() {
@@ -38,7 +38,7 @@ function Signup() {
       email: "",
       mobile: "",
       password: "",
-      reenterpassword: "",
+      
     },
     validationSchema: signUpSchema,
     onSubmit: (values, { resetForm }) => {
@@ -146,23 +146,7 @@ function Signup() {
                   {formik.touched.password && formik.errors.password}
                 </div>
 
-                <div>
-                  <input
-                    type="password"
-                    name="reenterpassword"
-                    placeholder="Confirm password"
-                    className="form-control"
-                    value={formik.values.reenterpassword}
-                    onChange={formik.handleChange("reenterpassword")}
-                    onBlur={formik.handleBlur("reenterpassword")}
-                  />
-                </div>
-
-                <div className="error">
-                  {formik.touched.reenterpassword &&
-                    formik.errors.reenterpassword}
-                </div>
-
+                
                 <div>
                   <button type="submit" id="create-btn">
                     Create

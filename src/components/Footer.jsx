@@ -8,24 +8,24 @@ import logo from "../assets/GrowIT-LOGO.png";
 function Footer() {
   return (
     <>
-      <footer className="py-4">
+      <footer className="py-4" id="first-footer">
         <div className="py-3">
-          <div className="container-xxl">
-            <div className="row ">
-              <div className="col-5">
-                <div className="footer-top-data d-flex gap-30 align-items-center">
+          <div className="container">
+            <div className="row " id="footer-one">
+              <div className="">
+                <div className="footer-top-data d-flex gap-30 align-items-center" id="newsletter" >
                   <i
                     className="fa-solid fa-envelope fa-2xl"
                     style={{ color: "#2f753a" }}
                     id="mail-icon"
                   ></i>
-                  <h2 className="mb-0 " id="newsletter">
+                  <h2 className="mb-0 " >
                     Sign up for Newsletter
                   </h2>
                 </div>
               </div>
-              <div className="col-7">
-                <div className="input-group ">
+              <div className="">
+                <div id="input-group ">
                   <InputGroup className="mb-3">
                     <Form.Control
                       placeholder="Your email address"
@@ -47,7 +47,7 @@ function Footer() {
         </div>
       </footer>
 
-      <footer className="py-4" id="footer-headings">
+      <footer className="py-4" id="first-footer">
         <div className="container-xxl">
           <div className="row">
             <div className="col-3">
@@ -186,7 +186,7 @@ function Footer() {
         </div>
       </footer>
 
-      <footer className="py-4">
+      <footer className="py-4" id="first-footer">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">

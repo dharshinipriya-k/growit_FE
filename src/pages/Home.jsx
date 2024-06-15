@@ -1,6 +1,4 @@
 import moment from "moment";
-import '../UI/carousel.css'
-import '../UI/categories.css'
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -28,7 +26,6 @@ import { getAllProducts } from "../features/products/ProductSlice";
 import { getUserCart } from "../features/user/UserSlice";
 import PopularProduct from "../components/PopularProduct";
 
-
 function Home() {
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product?.products);
@@ -53,122 +50,104 @@ function Home() {
 
   return (
     <>
-   
-    {/* CAROUSEL SECTION */}
-        <div className="carousel-wrapper">
-            <Carousel fade className="carousel">
-              <Carousel.Item>
-                <img
-                  src={CarouselImage2}
-                  alt="Let's Grow It Together"
-                  className="carousel-image"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  src={CarouselImage1}
-                  alt="Let's Grow It Together"
-                  className="carousel-image"
-                />
-                <Carousel.Caption>
-                  <h3>Let's Grow It Together</h3>
-                </Carousel.Caption>
-              </Carousel.Item>
+      {/* CAROUSEL SECTION */}
+      <div className="carousel-wrapper">
+        <Carousel fade className="carousel">
+          <Carousel.Item>
+            <img
+              src={CarouselImage2}
+              alt="Let's Grow It Together"
+              className="carousel-image"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              src={CarouselImage1}
+              alt="Let's Grow It Together"
+              className="carousel-image"
+            />
+            <Carousel.Caption>
+              <h3>Let's Grow It Together</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
 
-              <Carousel.Item>
-                <img
-                  src={CarouselImage3}
-                  alt="Let's Grow It Together"
-                  className="carousel-image"
-                />
-                <Carousel.Caption>
-                  <h3>Let's Grow It Together</h3>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
-          </div>
- 
+          <Carousel.Item>
+            <img
+              src={CarouselImage3}
+              alt="Let's Grow It Together"
+              className="carousel-image"
+            />
+            <Carousel.Caption>
+              <h3>Let's Grow It Together</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </div>
 
       {/* CATEGORY SECTION */}
-     
-              <div className="category-wrapper">
-              <h2 className="category-heading">Categories</h2>
-              <div className="categories">
-                <div onClick={() => navigate("shop/seeds")}>
-                  <img src={Seeds} alt="sseedd" className="category-image" />
-                  <h4 className="category-text" to={"/shop"}>
-                    Seeds
-                  </h4>
-                </div>
 
-                <div onClick={() => navigate("shop/grow_bags")}>
-                  <img
-                    src={GrowBags}
-                    alt="growbag"
-                    className="category-image"
-                  />
-                  <h5 className="category-text">Grow bags</h5>
-                </div>
+      <div className="category-wrapper">
+        <h2 className="category-heading">Categories</h2>
+        <div className="categories">
+          <div onClick={() => navigate("shop/seeds")}>
+            <img src={Seeds} alt="sseedd" className="category-image" />
+            <h4 className="category-text" to={"/shop"}>
+              Seeds
+            </h4>
+          </div>
 
-                <div onClick={() => navigate("shop/soil")}>
-                  <img
-                    src={Cocopeat}
-                    alt="growbag"
-                    className="category-image"
-                  />
-                  <h5 className="category-text">Soil & Cocopeat</h5>
-                </div>
+          <div onClick={() => navigate("shop/grow_bags")}>
+            <img src={GrowBags} alt="growbag" className="category-image" />
+            <h5 className="category-text">Grow bags</h5>
+          </div>
 
-                <div onClick={() => navigate("shop/Fertilizers")}>
-                  <img src={Manure} alt="growbag" className="category-image" />
-                  <h5 className="category-text">Fertilizers</h5>
-                </div>
+          <div onClick={() => navigate("shop/soil")}>
+            <img src={Cocopeat} alt="growbag" className="category-image" />
+            <h5 className="category-text">Soil & Cocopeat</h5>
+          </div>
 
-                <div onClick={() => navigate("shop/Accessories")}>
-                  <img
-                    src={Accessories}
-                    alt="Accessories"
-                    className="category-image"
-                  />
-                  <h5 className="category-text">Accessories</h5>
-                </div>
+          <div onClick={() => navigate("shop/Fertilizers")}>
+            <img src={Manure} alt="growbag" className="category-image" />
+            <h5 className="category-text">Fertilizers</h5>
+          </div>
 
-                <div onClick={() => navigate("shop/Plants")}>
-                  <img src={Plants} alt="Plants" className="category-image" />
-                  <h5 className="category-text">Plants</h5>
-                </div>
-
-                <div onClick={() => navigate("shop/PestControl")}>
-                  <img
-                    src={PestControl}
-                    alt="Pest Control"
-                    className="category-image"
-                  />
-                  <h5 className="category-text">Organic Pest Control</h5>
-                </div>
-              </div>
-              </div>
-           
-      {/* HOW IT WORKS BANNER */}
-     
-      {/* <div className="how-it-works-wrapper">
+          <div onClick={() => navigate("shop/Accessories")}>
             <img
-              src={HowItWorksBanner}
-              alt="how-It-Works"
-              id="how-it-works-banner"
+              src={Accessories}
+              alt="Accessories"
+              className="category-image"
             />
-          </div> */}
-     
+            <h5 className="category-text">Accessories</h5>
+          </div>
 
-      {/* STORE HOURS */}
-      {/* <section className="home-wrapper-5">
-        <div className="working-hours-img">
-          <img src={workingHours} alt="" className="working-hours-img" />
+          <div onClick={() => navigate("shop/Plants")}>
+            <img src={Plants} alt="Plants" className="category-image" />
+            <h5 className="category-text">Plants</h5>
+          </div>
+
+          <div onClick={() => navigate("shop/PestControl")}>
+            <img
+              src={PestControl}
+              alt="Pest Control"
+              className="category-image"
+            />
+            <h5 className="category-text">Organic Pest Control</h5>
+          </div>
         </div>
-      </section> */}
+      </div>
+
+      {/* HOW IT WORKS BANNER */}
+
+      <div className="how-it-works-wrapper">
+        <img
+          src={HowItWorksBanner}
+          alt="how-It-Works"
+          id="how-it-works-banner"
+        />
+      </div>
 
       {/* POPULAR ITEMS SECTION */}
-      {/* <div>
+      <div>
         <div className="col-12">
           <h3 className="popular-sec-heading">Most Popular</h3>
         </div>
@@ -191,13 +170,10 @@ function Home() {
               }
             })}
         </div>
-      </div> */}
-
-      
-       
+      </div>
 
       {/* BLOG SECTION */}
-      <section className="blog-wrapper">
+      <div className="blog-wrapper">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -205,27 +181,29 @@ function Home() {
             </div>
           </div>
           <div className="row">
-            {blogState &&
-              blogState?.map((item, index) => {
-                if (index < 4) {
-                  return (
-                    <div key={index} className="col-3 ">
-                      <BlogCard
-                        id={item?._id}
-                        title={item?.title}
-                        description={item?.description}
-                        image={item?.image}
-                        date={moment(item?.created_at).format(
-                          "MMMM DD YYYY, h:mm:ss a"
-                        )}
-                      />
-                    </div>
-                  );
-                }
-              })}
+            <div className="blog-wrap">
+              {blogState &&
+                blogState?.map((item, index) => {
+                  if (index < 4) {
+                    return (
+                      <div key={index} className="">
+                        <BlogCard
+                          id={item?._id}
+                          title={item?.title}
+                          description={item?.description}
+                          image={item?.image}
+                          date={moment(item?.created_at).format(
+                            "MMMM DD YYYY, h:mm:ss a"
+                          )}
+                        />
+                      </div>
+                    );
+                  }
+                })}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }

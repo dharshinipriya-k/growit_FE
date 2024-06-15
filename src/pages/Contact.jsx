@@ -57,7 +57,7 @@ function Contact() {
             </div>
 
             <div className="col-12 mt-5">
-              <div className="contact-inner-wrapper d-flex justify-content-between">
+              <div className="contact-inner-wrapper ">
                 <div>
                   <h3 className="contact-title mb-4">Contact</h3>
                   <form action="" onSubmit={formik.handleSubmit} className="d-flex flex-column gap-15">

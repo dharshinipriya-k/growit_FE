@@ -15,7 +15,7 @@ function ProductCard(props) {
       {data &&
         data?.map((item, index) => {
           return (
-            <div className="col-3">
+            <div className="">
               <div
                 className="product-card position-relative"
                 onClick={() => navigate("/product/" + item?._id)}

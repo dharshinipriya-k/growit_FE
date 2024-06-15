@@ -12,7 +12,7 @@ function PopularProduct(props) {
   return (
     <>
       <div>
-        <div className="col-3">
+        <div >
           <div
             className="product-card position-relative"
             onClick={() => navigate("/product/" + id)}

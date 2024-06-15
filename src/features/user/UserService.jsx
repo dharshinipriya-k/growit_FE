@@ -95,7 +95,7 @@ const forgotPassToken =  async (data) => {
 
 const resetPassToken =  async (data) => {
     console.log('error in reset axios');
-    const response = await axios.put(`http://localhost:8000/api/user/reset-password/${data.token}`,{password: data?.password})
+    const response = await axios.put(`https://backend-growit.onrender.com/api/user/reset-password/${data.token}`,{password: data?.password})
     if(response.data){
         return response.data
     }

@@ -38,11 +38,10 @@ function Shop() {
   return <>
       <Meta title = {'Shop'} />
       <Breadcrumb title= 'Shop' />
-      <div className="shop-wrapper home-wrapper-2 py-5">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-3">
-
+      {/* <div className=" home-wrapper-2 py-5">
+        <div className="container-fluid"> */}
+          <div id="shop-wrapper">
+ 
               <div className='filter-card mb-3'>
                 <h3 className="filter-title">Shop By Category</h3>
                 <div>
@@ -58,9 +57,8 @@ function Shop() {
                 </div>
               </div>
 
-            </div>
 
-            <div className="col-9">
+            <div >
               <p>{`Showing all ${productState?.length} result(s)`}</p>
               <div className="products-card-wrapper">
                     <ProductCard data={productState}/>
@@ -69,8 +67,8 @@ function Shop() {
             </div>
 
           </div>
-        </div>
-      </div>
+        {/* </div>
+      </div> */}
   </>
 }
 

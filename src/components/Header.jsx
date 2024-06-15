@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../UI/header.css";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import logo from "../assets/app-name.gif";
