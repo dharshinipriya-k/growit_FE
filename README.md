@@ -1,6 +1,8 @@
 Welcome to GROW IT. This is an E-Commerce application which is a one step destination for all your garden needs. This project is built using MERN Stack (MongoDB, ExpressJS, ReactJS, NodeJS).
 Additional feature of Paypal payment integration is also implemented.
 
+Grow It Seller Page URL: https://growit-admin.vercel.app/
+
 The main functionalities of this application are: 
 
 ADMIN SIDE: 
