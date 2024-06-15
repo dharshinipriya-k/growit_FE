@@ -1,4 +1,6 @@
 import moment from "moment";
+import '../UI/carousel.css'
+import '../UI/categories.css'
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -26,6 +28,7 @@ import { getAllProducts } from "../features/products/ProductSlice";
 import { getUserCart } from "../features/user/UserSlice";
 import PopularProduct from "../components/PopularProduct";
 
+
 function Home() {
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state.product?.products);
@@ -51,6 +54,7 @@ function Home() {
   return (
     <>
    
+    {/* CAROUSEL SECTION */}
         <div className="carousel-wrapper">
             <Carousel fade className="carousel">
               <Carousel.Item>
@@ -145,7 +149,15 @@ function Home() {
               </div>
               </div>
            
-
+      {/* HOW IT WORKS BANNER */}
+     
+      {/* <div className="how-it-works-wrapper">
+            <img
+              src={HowItWorksBanner}
+              alt="how-It-Works"
+              id="how-it-works-banner"
+            />
+          </div> */}
      
 
       {/* STORE HOURS */}
@@ -156,7 +168,7 @@ function Home() {
       </section> */}
 
       {/* POPULAR ITEMS SECTION */}
-      <div>
+      {/* <div>
         <div className="col-12">
           <h3 className="popular-sec-heading">Most Popular</h3>
         </div>
@@ -179,20 +191,10 @@ function Home() {
               }
             })}
         </div>
-      </div>
+      </div> */}
 
-      {/* HOW IT WORKS BANNER */}
-      {/* <section className="home-wrapper-3 py-5"> */}
-        <div className="how-it-works-wrapper">
-          {/* <div className="row"> */}
-            <img
-              src={HowItWorksBanner}
-              alt="how-It-Works"
-              id="how-it-works-banner"
-            />
-          </div>
-        {/* </div> */}
-      {/* </section> */}
+      
+       
 
       {/* BLOG SECTION */}
       <section className="blog-wrapper">

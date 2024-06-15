@@ -1,0 +1,171 @@
+@media screen and (min-width: 1025px) {
+   
+      .categories{
+        box-shadow: 0 0 10px #0000001a;
+        width: 82%;
+        margin-left: 8rem;
+        display: grid !important;
+        grid-template-columns: auto auto auto !important; 
+        gap: 1rem !important;
+        justify-content: space-evenly;
+      }
+    
+      .category-image{
+        height: 10rem;
+        width: 12rem;
+      }
+      
+      .categories > div{
+          cursor: pointer;
+          height: 17rem;
+          width: 15rem;
+          padding: 10px;
+      }
+      
+      .categories > div:hover{
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      }
+      
+      .category-text{
+        margin-left: 0 !important;
+        text-align: center;
+        margin-top: 0.5rem;
+        text-decoration: none;
+        color:black;
+        font-size:x-large;
+        font-weight: bold;
+      }
+    
+      .category-heading{
+        text-align: center !important;
+        margin-top: 2rem;
+      }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .categories{
+    box-shadow: 0 0 10px #0000001a;
+    width: 75%;
+    margin-left: 5rem;
+    display: grid !important;
+    grid-template-columns: auto auto  !important; 
+    gap: 0.2rem !important;
+    justify-content: space-evenly;
+  }
+
+  .category-image{
+    height: 8rem;
+    width: 8rem;
+  }
+  
+  .categories > div{
+      cursor: pointer;
+      height: 17rem;
+      width: 15rem;
+      padding: 10px;
+  }
+  
+  .categories > div:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  
+  .category-text{
+    margin-left: 0 !important;
+    text-align: left;
+    margin-top: 0.3rem;
+    text-decoration: none;
+    color:black;
+    font-size:x-large;
+    font-weight: bold;
+  }
+
+  .category-heading{
+    text-align: center !important;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .categories{
+    box-shadow: 0 0 10px #0000001a;
+    width: 85%;
+    margin-left: 5rem;
+    display: grid !important;
+    grid-template-columns: auto auto !important; 
+
+  }
+
+  .category-image{
+    height: 8rem;
+    width: 8rem;
+  }
+  
+  .categories > div{
+      cursor: pointer;
+      height: 13rem;
+      width: 15rem;
+      padding: 10px;
+  }
+  
+  .categories > div:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  
+  .category-text{
+    margin-left: 0 !important;
+    text-align: left;
+    margin-top: 0.3rem;
+    text-decoration: none;
+    color:black;
+    font-size:x-large;
+    font-weight: bold;
+  }
+
+  .category-heading{
+    text-align: center !important;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .categories{
+    box-shadow: 0 0 10px #0000001a;
+    width: 280vw;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    display: grid !important;
+    grid-template-columns: auto auto auto !important; 
+
+  }
+
+  .category-image{
+    height: 8rem;
+    width: 8rem;
+  }
+  
+  .categories > div{
+      cursor: pointer;
+      height: 13rem;
+      width: 15rem;
+      padding: 10px;
+  }
+  
+  .categories > div:hover{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  
+  .category-text{
+    margin-left: 0 !important;
+    text-align: left;
+    margin-top: 0.3rem;
+    text-decoration: none;
+    color:black;
+    font-size:x-large;
+    font-weight: bold;
+  }
+
+  .category-heading{
+    text-align: center !important;
+    margin-top: 2rem;
+  }
+}

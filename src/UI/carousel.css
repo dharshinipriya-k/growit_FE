@@ -1,0 +1,36 @@
+@media screen and (min-width: 1025px) {
+    .carousel-image{
+        height: 25rem ;
+        width: 100%; 
+     }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+   .carousel-image{
+    height: 20rem;
+    width: 280vw;
+   }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .carousel-image{
+        height: 15rem;
+        width: 100% !important;
+        margin-top: 0.5rem ;
+        margin-left: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .carousel-image{
+        height: 15rem;
+        width: 280vw !important;
+        margin-top: 0.5rem ;
+        margin-left: 0.5rem;
+        display: none;
+    }
+
+    .carousel-wrapper{
+        display: none;
+    }
+}
